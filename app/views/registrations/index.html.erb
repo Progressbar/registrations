@@ -1,0 +1,11 @@
+<% content_for :body_content_left do %>
+  <ul id="registrations">
+    <% @registrations.each do |registration| %>
+      <li>
+        <%= link_to registration.username, registration_path(registration) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render :partial => "/shared/content_page" %>

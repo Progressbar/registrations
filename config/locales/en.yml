@@ -1,0 +1,25 @@
+en:
+  shared:
+    admin:
+      image_picker:
+        image: image
+  plugins:
+    registrations:
+      title: Registrations
+  admin:
+    registrations:
+      actions:
+        create_new: Add New Registration
+        reorder: Reorder Registrations
+        reorder_done: Done Reordering Registrations
+      records:
+        title: Registrations
+        sorry_no_results: Sorry! There are no results found.
+        no_items_yet: There are no Registrations yet. Click "Add New Registration" to add your first registration.
+      registration:
+        view_live_html: View this registration live <br/><em>(opens in a new window)</em>
+        edit: Edit this registration
+        delete: Remove this registration forever
+  registrations:
+    show:
+      other: Other Registrations

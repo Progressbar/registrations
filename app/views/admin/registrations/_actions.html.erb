@@ -1,0 +1,28 @@
+<ul>
+  <% if Admin::RegistrationsController.searchable? %>
+    <li>
+      <%= render :partial => "/shared/admin/search",
+                  :locals => {
+                    :url => admin_registrations_path
+                  } %>
+    </li>
+  <% end %>
+    <li <%= "class='selected'" if params[:action] == "index" %>>
+      <%= link_to t('.new_registrations'), admin_registrations_url, :class => "email_icon" %>
+    </li>
+    <li <%= "class='selected'" if params[:action] == "rejected" %>>
+      <%= link_to t('.rejected_registrations'), rejected_admin_registrations_url, :class => "email_icon" %>
+    </li>
+    <li <%= "class='selected'" if params[:action] == "approved" %>>
+      <%= link_to t('.approved_registrations'), approved_admin_registrations_url, :class => "email_icon" %>
+    </li>
+    <li <%= "class='selected'" if params[:action] == "spam" %>>
+      <% if @spam_count > 0  %>
+        <%= link_to "#{t('.spam')} (#{@spam_count})", spam_admin_registrations_url, :class => "spam_icon" %>
+      <% else %>
+        <%= link_to t('.spam'), spam_admin_registrations_url, :class => "spam_empty_icon" %>
+      <% end %>
+    </li>
+   
+  </ul>
+</div>

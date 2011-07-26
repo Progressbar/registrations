@@ -1,0 +1,8 @@
+<%= will_paginate @registrations %>
+<% group_by_date(@registrations).each do |container| %>
+  <h3><%= l((registration_group = container.last).first.created_at, :format => :short) %></h3>
+  <ul>
+    <%= render :partial => 'registration', :collection => registration_group %>
+  </ul>
+<% end %>
+<%= will_paginate @registrations %>

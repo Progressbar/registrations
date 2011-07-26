@@ -1,0 +1,28 @@
+<li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= dom_id(registration) -%>">
+  <span class='title'>
+    <%= link_to "#{registration.username}, #{registration.email}", admin_registration_url(registration),
+      :title => t('.read_registration') -%>
+    <span class="preview">&nbsp;</span>
+  </span>
+  <span class='actions'>
+    <% if registration.spam? %>
+      <%= link_to refinery_icon_tag('email.png'), toggle_spam_admin_registration_url(registration),
+        :title => t('.mark_as_ham') -%>
+    <% else %>
+      <%= link_to refinery_icon_tag('bin_closed.png'), toggle_spam_admin_registration_url(registration),
+        :title => t('.mark_as_spam') -%>
+    <% end %>
+    <%= link_to refinery_icon_tag("delete.png"), admin_registration_path(registration),
+      :class => "cancel confirm-delete",
+      :title => t('.delete'),
+      :confirm => t('message', :scope => 'shared.admin.delete', :title => registration.username),
+      :method => :delete %>
+
+    <%= link_to refinery_icon_tag("cross.png"),
+                rejected_admin_registration_path(registration),
+                :title => t('.reject') unless registration.rejected? %>
+    <%= link_to refinery_icon_tag("tick.png"),
+                approved_admin_registration_path(registration),
+                :title => t('.approve') unless registration.approved? %>    
+  </span>
+</li>
