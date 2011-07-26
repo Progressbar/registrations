@@ -1,0 +1,22 @@
+<% content_for :body_content_left do %>
+  <section>
+    <h1 style="text-align: left;">Username</h1>
+    <p>
+      <%=raw @registration.username %>
+    </p>
+  </section>
+  <section>
+    <h1 style="text-align: left;">Email</h1>
+    <p>
+      <%=raw @registration.email %>
+    </p>
+  </section>
+  <section>
+    <h1 style="text-align: left;">Personal Info</h1>
+    <p>
+      <%=raw @registration.personal_info %>
+    </p>
+  </section>
+<% end %>
+
+<%= render :partial => "/shared/content_page" %>

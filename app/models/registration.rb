@@ -5,15 +5,14 @@ class Registration < ActiveRecord::Base
   validates :username, :presence => true, :length => { :in => 6..20 }
   validates :email, :presence => true, :uniqueness => true, :length => { :in => 6..42 }
   validates :personal_info, :presence => true, :length => { :in => 6..250 }
-  validates :state, :presence => true, :format => { :with => /new|approved|rejected/ }
+  validates :state, :presence => true, :format => { :with => /unmoderated|approved|rejected/ }
 
   filters_spam :message_field => :personal_info,
     :email_field => :email,
     :author_field => :username,
     :extra_spam_words => %w()
   
-  
-  scope :new, :conditions => {:state => 'new'}
+  scope :unmoderated, :conditions => {:state => 'unmoderated'}
   scope :approved, :conditions => {:state => 'approved'}
   scope :rejected, :conditions => {:state => 'rejected'}
 
@@ -33,8 +32,8 @@ class Registration < ActiveRecord::Base
     self.state == 'approved'
   end
 
-  def new?
-    self.state == 'new'
+  def unmoderated?
+    self.state == 'unmoderated'
   end
 
   def self.latest(number = 7, include_spam = false)

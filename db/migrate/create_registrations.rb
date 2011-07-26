@@ -8,7 +8,7 @@ class CreateRegistrations < ActiveRecord::Migration
       t.string :username, :null => false
       t.string :email, :null => false
       t.text :personal_info, :null => false
-      t.string :state, :null => false, :default => 'new'
+      t.string :state, :null => false, :default => 'unmoderated'
       
       t.integer :position
       t.boolean  :spam, :default => false

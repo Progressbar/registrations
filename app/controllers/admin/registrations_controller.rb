@@ -11,7 +11,7 @@ module Admin
     before_filter :get_spam_count, :only => [:index, :spam, :approved, :rejected]
 
     def index
-      @registrations = @registrations.new
+      @registrations = @registrations.unmoderated
       @registrations = @registrations.with_query(params[:search]) if searching?
       @registrations = @registrations.paginate({:page => params[:page]})
     end
