@@ -2,7 +2,7 @@ module Admin
   class RegistrationsController < Admin::BaseController
 
     crudify :registration,
-            :title_attribute => 'username', :xhr_paging => true
+      :title_attribute => 'username', :xhr_paging => true
 
     helper_method :group_by_date
 
@@ -23,7 +23,31 @@ module Admin
         render :action => 'index'
       else
         @registration = Registration.find(params[:id])
-        @registration.approve!
+        password = (0...20).map{ ('a'..'z').to_a[rand(26)] }.join
+        
+        u = User.create(:username => @registration.username, 
+                        :email => @registration.email, 
+                        :password => password, 
+                        :password_confirmation => password)
+
+        if u.valid?
+          begin
+            last_user = User.order('progressbar_uid ASC').limit(1).last
+            u.add_role(:member)
+            u.add_role(:refinery)
+            u.plugins = ['fees']
+            u.progressbar_uid = last_user.nil? ? u.id : last_user.progressbar_uid.to_i + 42
+            u.send(:generate_reset_password_token!)
+            u.save
+            @registration.approve!
+            RegistrationMailer.approved_confirmation(@registration, u, request).deliver
+          rescue
+            logger.warn "There was an error delivering an approved registration confirmation.\n#{$!}\n"
+          end          
+        else
+          puts "#{@registration.email} - #{u.errors.to_s}"
+        end
+        
         flash[:notice] = t('approved', :scope => 'admin.registration', :author => @registration.username)
         redirect_to :action => 'index'
       end
@@ -35,8 +59,13 @@ module Admin
         @registrations = @registrations.paginate({:page => params[:page]})
         render :action => 'index'
       else
-        @registration = Registration.find(params[:id])
-        @registration.reject!
+        begin        
+          @registration = Registration.find(params[:id])
+          @registration.reject!
+          RegistrationMailer.rejected_confirmation(@registration, request).deliver
+        rescue
+          logger.warn "There was an error delivering an rejected registration confirmation.\n#{$!}\n"
+        end   
         flash[:notice] = t('rejected', :scope => 'admin.registration', :author => @registration.username)
         redirect_to :action => 'index'
       end
@@ -54,8 +83,8 @@ module Admin
       redirect_to :back
     end
 
-  protected
-
+    protected
+      
     def find_all_ham
       @registrations = Registration.ham
     end
