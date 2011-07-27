@@ -8,13 +8,13 @@
     </li>
   <% end %>
     <li <%= "class='selected'" if params[:action] == "index" %>>
-      <%= link_to t('.new_registrations'), admin_registrations_url, :class => "email_icon" %>
+      <%= link_to t('.new_registrations'), admin_registrations_url %>
     </li>
     <li <%= "class='selected'" if params[:action] == "rejected" %>>
-      <%= link_to t('.rejected_registrations'), rejected_admin_registrations_url, :class => "email_icon" %>
+      <%= link_to t('.rejected_registrations'), rejected_admin_registrations_url %>
     </li>
     <li <%= "class='selected'" if params[:action] == "approved" %>>
-      <%= link_to t('.approved_registrations'), approved_admin_registrations_url, :class => "email_icon" %>
+      <%= link_to t('.approved_registrations'), approved_admin_registrations_url %>
     </li>
     <li <%= "class='selected'" if params[:action] == "spam" %>>
       <% if @spam_count > 0  %>
