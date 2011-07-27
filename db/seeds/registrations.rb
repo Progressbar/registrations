@@ -1,6 +1,6 @@
 if defined?(User)
   User.all.each do |user|
-    if user.plugins.where(:name => 'registrations').blank?
+    if user.has_role?(:superuser) && user.plugins.where(:name => 'registrations').blank?
       user.plugins.create(:name => 'registrations',
                           :position => (user.plugins.maximum(:position) || -1) +1)
     end
