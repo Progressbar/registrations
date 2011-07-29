@@ -23,7 +23,7 @@ class RegistrationsController < ApplicationController
         end
       end
       
-      redirect_to '/join-us'
+      redirect_to url_for(@page)
     else
       flash[:error] = t('.problems_on_registration')
       render 'pages/join'
@@ -33,7 +33,7 @@ class RegistrationsController < ApplicationController
   protected
 
   def find_page
-    @page = Page.find_by_title('Pridaj sa')
+    @page = @join_us_page
   end
 
   def set_form

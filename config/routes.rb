@@ -1,6 +1,6 @@
 ::Refinery::Application.routes.draw do
 
-  resources :registrations
+  resources :registrations, :only => [:index, :create]
 
   scope(:path => 'refinery', :as => 'admin', :module => 'admin') do
     resources :registrations, :only => [:index, :show, :destroy, :accept, :reject] do

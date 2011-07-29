@@ -1,7 +1,7 @@
 class RegistrationMailer < ActionMailer::Base
 
   def confirmation(registration, request)
-    subject     'Progressbar Hackerspace - Thank You for registration'
+    subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - #{t('.thank_you_for_registration')}"
     recipients  registration.email
     from        "\"#{RefinerySetting[:site_name]}\" <no-reply@#{request.domain(RefinerySetting.find_or_set(:tld_length, 1))}>"
     sent_on     Time.now
@@ -9,7 +9,7 @@ class RegistrationMailer < ActionMailer::Base
   end
 
   def approved_confirmation(registration, user, request)
-    subject     'Progressbar Hackerspace - Your registration was approved! :-)'
+    subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - #{t('.registration_approved')}"
     recipients  registration.email
     from        "\"#{RefinerySetting[:site_name]}\" <no-reply@#{request.domain(RefinerySetting.find_or_set(:tld_length, 1))}>"
     sent_on     Time.now
@@ -20,7 +20,7 @@ class RegistrationMailer < ActionMailer::Base
   end
 
   def rejected_confirmation(registration, request)
-    subject     'Progressbar Hackerspace - Your registration was rejected.'
+    subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - #{t('.registration_rejected')}"
     recipients  registration.email
     from        "\"#{RefinerySetting[:site_name]}\" <no-reply@#{request.domain(RefinerySetting.find_or_set(:tld_length, 1))}>"
     sent_on     Time.now
@@ -28,7 +28,7 @@ class RegistrationMailer < ActionMailer::Base
   end
 
   def notification(registration, request)
-    subject     'New registration'
+    subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - #{t('.new_registration')}"
     recipients  RefinerySetting.find_or_set(:registration_notification_recipients, 'keraml@gmail.com')
     from        "\"#{RefinerySetting[:site_name]}\" <no-reply@#{request.domain(RefinerySetting.find_or_set(:tld_length, 1))}>"
     sent_on     Time.now
