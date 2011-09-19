@@ -1,5 +1,16 @@
--t- registration approved_confirmation email
--t- username: <%= @user.username %>
--t- email: <%= @user.email %>
--t- uid <%= @user.progressbar_uid.to_s %>
--t- reset password: <%= @new_password_url %>
+Gratulujeme!
+Tvoja registrácia za člena Progressbar Hackerspace bola schválená.
+
+Identifikačné údaje:
+
+Username: <%= @user.username %>
+E-mail: <%= @user.email %>
+UID (variabilný symbol pri platbe členského): <%= @user.progressbar_uid.to_s %>
+Nastavenie hesla: <%= @new_password_url %>
+
+S pozdravom,
+
+Progressbar tím
+
+info@progressbar.sk
+https://www.progressbar.sk

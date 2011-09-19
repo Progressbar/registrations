@@ -1,7 +1,7 @@
 class RegistrationMailer < ActionMailer::Base
 
   def confirmation(registration, request)
-    subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - #{t('.thank_you_for_registration')}"
+    subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - registration"
     recipients  registration.email
     from        "\"#{RefinerySetting[:site_name]}\" <no-reply@#{request.domain(RefinerySetting.find_or_set(:tld_length, 1))}>"
     sent_on     Time.now
@@ -28,7 +28,7 @@ class RegistrationMailer < ActionMailer::Base
   end
 
   def notification(registration, request)
-    subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - #{t('.new_registration')}"
+    subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - #{t('.registration_notification')}"
     recipients  RefinerySetting.find_or_set(:registration_notification_recipients, 'keraml@gmail.com')
     from        "\"#{RefinerySetting[:site_name]}\" <no-reply@#{request.domain(RefinerySetting.find_or_set(:tld_length, 1))}>"
     sent_on     Time.now

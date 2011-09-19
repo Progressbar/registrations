@@ -1,14 +1,14 @@
 class RegistrationsController < ApplicationController
 
-  before_filter :find_page, :set_form
-
+  before_filter :default_pages, :find_page, :set_form
+  
   def index
     render 'pages/join'
   end
 
   def create
     if @registration.valid? && @registration.save      
-      flash[:success] = t('.thank_you_for_registration')
+      flash[:success] = t('.registration_was_sent_successfully')
       if @registration.ham?
         begin
           RegistrationMailer.notification(@registration, request).deliver
