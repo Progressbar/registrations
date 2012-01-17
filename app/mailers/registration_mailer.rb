@@ -29,7 +29,7 @@ class RegistrationMailer < ActionMailer::Base
 
   def notification(registration, request)
     subject     "#{RefinerySetting.find_or_set(:site_name, 'Progressbar Hackerspace')} - #{t('.registration_notification')}"
-    recipients  RefinerySetting.find_or_set(:registration_notification_recipients, 'keraml@gmail.com')
+    recipients  RefinerySetting.find_or_set(:registration_notification_recipients, RefinerySetting.find_or_set(:inquiry_notification_recipients, 'info@progressbar.sk'))
     from        "\"#{RefinerySetting[:site_name]}\" <no-reply@#{request.domain(RefinerySetting.find_or_set(:tld_length, 1))}>"
     sent_on     Time.now
     @registration = registration
